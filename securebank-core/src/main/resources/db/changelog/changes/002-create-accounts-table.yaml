@@ -1,0 +1,80 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-accounts-table
+      author: securebank
+      changes:
+        - createTable:
+            tableName: accounts
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_number
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: DECIMAL(19,2)
+                  defaultValueNumeric: 0.00
+                  constraints:
+                    nullable: false
+              - column:
+                  name: account_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tenant_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: accounts
+            baseColumnNames: user_id
+            constraintName: fk_accounts_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - createIndex:
+            indexName: idx_accounts_user_id
+            tableName: accounts
+            columns:
+              - column:
+                  name: user_id
+        - createIndex:
+            indexName: idx_accounts_tenant_id
+            tableName: accounts
+            columns:
+              - column:
+                  name: tenant_id
+        - createIndex:
+            indexName: idx_accounts_account_number
+            tableName: accounts
+            columns:
+              - column:
+                  name: account_number
