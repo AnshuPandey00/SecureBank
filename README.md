@@ -1,4 +1,4 @@
-# SecureBank - Educational Vulnerable Banking Platform
+# SecureBank - Educational Vulnerable Banking Platform 
 
 ![Version](https://img.shields.io/badge/version-1.0.0--VULNERABLE-red)
 ![Java](https://img.shields.io/badge/Java-17-orange)
